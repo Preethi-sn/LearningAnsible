@@ -1,0 +1,83 @@
+**************************************************************
+*   Push ansible role to github and import to ansible galaxy *
+**************************************************************
+
+
+
+here "staticapp" is the Ansible role created using Ansible-galaxy, enter into the ansible role directory and initiate git from there. 
+It will initiate the empty .git directory /etc/ansible/staticapp/.git/
+
+root@control-node-1:/etc/ansible# ls
+ansible.cfg  docker.yaml  hosts  inventory.ini  managedetails  roles  staticapp
+root@control-node-1:/etc/ansible# cd staticapp/
+root@control-node-1:/etc/ansible/staticapp# ls
+README.md  defaults  files  first-playbook.yaml  handlers  meta  staticapp  tasks  templates  tests  vars
+root@control-node-1:/etc/ansible/staticapp# 
+
+root@control-node-1:/etc/ansible/staticapp# git init
+hint: Using 'master' as the name for the initial branch. This default branch name
+hint: is subject to change. To configure the initial branch name to use in all
+hint: of your new repositories, which will suppress this warning, call:
+hint:
+hint:   git config --global init.defaultBranch <name>
+hint:
+hint: Names commonly chosen instead of 'master' are 'main', 'trunk' and
+hint: 'development'. The just-created branch can be renamed via this command:
+hint:
+hint:   git branch -m <name>
+Initialized empty Git repository in /etc/ansible/staticapp/.git/
+root@control-node-1:/etc/ansible/staticapp# 
+
+
+Add the git repo url url to remote origin : https://<username_git>:<token>@github.com/<username_git>/<reponame>.git
+note: token should be generated in github under https://github.com/settings --->make sure while creating the token, you should select scope "repo → Full control of private repositories" 
+so that it will authenticate from local machine to git repo and we can pull and push
+
+we can only authenticate via token only as "remote: Support for password authentication was removed on August 13, 2021."
+
+root@control-node-1:/etc/ansible/staticapp# git remote add origin  https://Preethi-sn:<token>@github.com/Preethi-sn/staticapp.git
+root@control-node-1:/etc/ansible/staticapp# git remote -v
+origin  https://Preethi-sn:<toekn>@github.com/Preethi-sn/staticapp.git (fetch)
+origin  https://Preethi-sn:<token>@github.com/Preethi-sn/staticapp.git (push)
+root@control-node-1:/etc/ansible/staticapp# 
+
+add the current directory/files to git and commit . finally push it to git master branch
+
+root@control-node-1:/etc/ansible/staticapp# git add .
+root@control-node-1:/etc/ansible/staticapp# git commit -m "initial ansible role"
+
+root@control-node-1:/etc/ansible/staticapp# git push origin master
+Enumerating objects: 19, done.
+Counting objects: 100% (19/19), done.
+Delta compression using up to 2 threads
+Compressing objects: 100% (9/9), done.
+Writing objects: 100% (19/19), 3.16 KiB | 3.16 MiB/s, done.
+Total 19 (delta 0), reused 0 (delta 0), pack-reused 0
+To https://github.com/Preethi-sn/staticapp.git
+ * [new branch]      master -> master
+root@control-node-1:/etc/ansible/staticapp#
+
+once you push it to git, you can go to github.com repo , refresh the page and you can see the files/folders in github
+
+
+once it successfully pushed to github then import to ansible galaxy as below
+
+note : token will be generated in ansible galaxy under collections -> API token
+
+root@control-node-1:/etc/ansible/staticapp# ansible-galaxy import Preethi-sn staticapp --token <toekn-id>
+Successfully submitted import request 2116133978239555569291360624870309445
+===== PROCESSING LOADER RESULTS ====
+enumerated role name staticapp
+created new role id:40939 Preethi-sn.staticapp
+
+===== COMPUTING ROLE VERSIONS ====
+
+==== SAVING ROLE ====
+
+Import completed
+
+
+this is process to push the ansible role to github and import to ansible galaxy
+
+
+Note : whenever you make changes any files under local machine/vm make sure to add,commit and push it to github so that it will reflect in github.
