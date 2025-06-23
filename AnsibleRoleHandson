@@ -4,7 +4,7 @@
 
 
 
-here "staticapp" is the Ansible role created using Ansible-galaxy, enter into the ansible role directory and initiate git from there. 
+here "staticapp" is the Ansible role created using Ansible-galaxy cli, enter into the ansible role directory and initiate git from there. 
 It will initiate the empty .git directory /etc/ansible/staticapp/.git/
 
 root@control-node-1:/etc/ansible# ls
@@ -29,11 +29,11 @@ Initialized empty Git repository in /etc/ansible/staticapp/.git/
 root@control-node-1:/etc/ansible/staticapp# 
 
 
-Add the git repo url url to remote origin : https://<username_git>:<token>@github.com/<username_git>/<reponame>.git
+Add the git repo url  to remote origin : https://<username_git>:<token>@github.com/<username_git>/<reponame>.git
 note: token should be generated in github under https://github.com/settings --->make sure while creating the token, you should select scope "repo → Full control of private repositories" 
 so that it will authenticate from local machine to git repo and we can pull and push
 
-we can only authenticate via token only as "remote: Support for password authentication was removed on August 13, 2021."
+we can only authenticate via token as "remote: Support for password authentication was removed on August 13, 2021."
 
 root@control-node-1:/etc/ansible/staticapp# git remote add origin  https://Preethi-sn:<token>@github.com/Preethi-sn/staticapp.git
 root@control-node-1:/etc/ansible/staticapp# git remote -v
@@ -61,6 +61,9 @@ once you push it to git, you can go to github.com repo , refresh the page and yo
 
 
 once it successfully pushed to github then import to ansible galaxy as below
+
+If you want to import the ansible role to galaxy, its mandatory to fill the metadata information in local repo and push it to git repo
+before import to Ansible-Galaxy.
 
 note : token will be generated in ansible galaxy under collections -> API token
 
