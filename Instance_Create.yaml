@@ -1,0 +1,19 @@
+---
+- name: Openstack Instance Create
+  hosts: localhost
+  connection: local
+  collections:
+    - openstack.cloud
+  tasks:
+    - name: Launch VM
+      openstack.cloud.server:
+        cloud: openstack
+        state: present
+        name: presures_vm
+        image: c6c73c32-f25a-4b84-9715-b9113b115011
+        flavor: 2vCPUx4GB
+        key_name: RCDNKey
+        network: 0d9998f5-f58a-4564-a167-94199df7db5a    #- net-name: tenant-internal-direct-net 
+        security_groups:
+          - default
+
