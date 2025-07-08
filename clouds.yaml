@@ -11,6 +11,7 @@ clouds:
     auth:
       auth_url: https://cloud-rcdn-1.cisco.com:5000/v3
       username: "presures"
+      password: "secret"
       project_id: c50bf7e8978243a2b1adedc8f4f5397f
       project_name: "internal-direct-net-devops"
       user_domain_name: "cisco"
