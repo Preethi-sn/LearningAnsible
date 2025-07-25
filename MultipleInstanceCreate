@@ -6,12 +6,14 @@
     state: present
     name: "{{  item.name }}"
     image: "{{ item.image }}"
-    flavor: "{{ flavor }}"
+    flavor: "{{ flavor }}" # declared in default_vars
     key_name: RCDNKey
     network: 0d9998f5-f58a-4564-a167-94199df7db5a    #- net-name: tenant-internal-direct-net
     security_groups:
       - default
   loop:
-    - { image: "c6c73c32-f25a-4b84-9715-b9113b115011" , name: "VM1" }
+    - { image: "c6c73c32-f25a-4b84-9715-b9113b115011" , name: "VM1" }  # image ids taken from openstack project
     - { image: "c6c73c32-f25a-4b84-9715-b9113b115011" , name: "VM3" }
     - { image: "38f71a2c-438b-43b0-a82e-30f7bd399acf" , name: "VM2" }
+
+# Instance has been createds successfully without using the tags ( 2 instances with ubuntu and 1 with redhat)
